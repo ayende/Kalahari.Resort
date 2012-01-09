@@ -41,3 +41,4 @@ ClientBin/
 StyleCop.Cache
 Data/
 *.dotCover
+Logs/
