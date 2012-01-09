@@ -8,57 +8,31 @@ using Raven.Client.Document;
 
 namespace Kalahari.Resort.Controllers
 {
-	public class HomeController : Controller
+	public class HomeController : RavenController
 	{
 		public ActionResult Index()
 		{
-			using (var store = new DocumentStore
+			var rand = new Random();
+			Session.Store(new RoomTypePricing
 			{
-				Url = "http://localhost:8080"
-			}.Initialize())
+				RoomTypeId = "RoomType/1",
+				Month = 1,
+				Year = 2012,
+				Pricing = Enumerable.Range(1, 31)
+			              	.ToDictionary(x => x, x => (decimal)rand.Next(200, 300))
+			});
+
+			return Json(new
 			{
-				return UseSession(store);
-			}
-		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		private ActionResult UseSession(IDocumentStore store)
-		{
-			using (var session = store.OpenSession())
-			{
-				var rand = new Random();
-				var roomTypePricing = new RoomTypePricing
+				new RoomTypePricing
 				{
 					RoomTypeId = "RoomType/1",
 					Month = 1,
 					Year = 2012,
-					Pricing = Enumerable.Range(1,31)
-						.ToDictionary(x=>x, x=> (decimal)rand.Next(200,300))
-				};
-				session.Store(roomTypePricing);
-
-				session.SaveChanges();
-
-				return Json(new
-				{
-					roomTypePricing.Id
-				}, JsonRequestBehavior.AllowGet);
-			}
+					Pricing = Enumerable.Range(1, 31)
+			            	.ToDictionary(x => x, x => (decimal)rand.Next(200, 300))
+				}.Id
+			}, JsonRequestBehavior.AllowGet);
 		}
 	}
 }
