@@ -39,5 +39,5 @@ ClientBin/
 /Modules/Json/Raven.Json/Raven.Json.g.3.5.csproj
 *.docstates
 StyleCop.Cache
-
+Data/
 *.dotCover
