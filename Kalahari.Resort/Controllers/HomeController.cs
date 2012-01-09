@@ -22,7 +22,7 @@ namespace Kalahari.Resort.Controllers
 			              	.ToDictionary(x => x, x => (decimal)rand.Next(200, 300))
 			});
 
-			return Json(new
+			return JsonGet(new
 			{
 				new RoomTypePricing
 				{
@@ -32,7 +32,39 @@ namespace Kalahari.Resort.Controllers
 					Pricing = Enumerable.Range(1, 31)
 			            	.ToDictionary(x => x, x => (decimal)rand.Next(200, 300))
 				}.Id
-			}, JsonRequestBehavior.AllowGet);
+			});
 		}
+
+		public ActionResult SaveRoomAndType()
+		{
+			RoomType newType = new RoomType
+			{
+				Name = "King Suite"
+			};
+
+			Session.Store(newType);
+
+			Session.Store(new Room
+			{
+				Number = "5000",
+				Rating = 5,
+				RoomType = newType.Id,
+				Smoking = false
+			});
+
+			return JsonGet(new { ok = true });
+		}
+
+		public ActionResult LoadRoomAndType()
+		{
+			var room = Session
+				.Include<Room>(r => r.RoomType)
+				.Load<Room>("rooms/1");
+			var type = Session.Load<RoomType>(room.RoomType);
+
+			return JsonGet(new { room, Type = type });
+		}
+
+
 	}
 }

@@ -46,5 +46,10 @@ namespace Kalahari.Resort.Controllers
 			}
 		}
 
+		protected ActionResult JsonGet(object data)
+		{
+			return Json(data, JsonRequestBehavior.AllowGet);
+		}
+
 	}
 }
