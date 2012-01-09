@@ -1,0 +1,170 @@
+time,logger,level,message,exception
+2012-01-09 09:21:35.9632,Raven.Database.Impl.DocumentCacher,Info,"MemoryCache Settings:
+  PhysicalMemoryLimit = 98
+  CacheMemoryLimit    = 1037041664
+  PollingInterval     = 00:02:00",
+2012-01-09 09:21:36.0372,Raven.Storage.Esent.TransactionalStorage,Info,"Esent Settings:
+  MaxVerPages      = 32768
+  CacheSizeMax     = 262144
+  DatabasePageSize = 4096",
+2012-01-09 09:21:38.3573,Raven.Database.DocumentDatabase,Debug,Delete a document with key: Raven/Backup/Status and etag ,
+2012-01-09 09:21:38.3693,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,"Document with key 'Raven/Backup/Status' was not found, and considered deleted",
+2012-01-09 09:21:38.3693,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 1 - step 1/2,
+2012-01-09 09:21:38.3693,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 2 - step 2/2,
+2012-01-09 09:21:38.5453,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 2, currentWorkCounter: 2, will wait for additional work",
+2012-01-09 09:21:38.6183,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 2, currentWorkCounter: 2, will wait for additional work",
+2012-01-09 09:21:38.6183,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 2, currentWorkCounter: 2, will wait for additional work",
+2012-01-09 09:21:38.6183,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 2, currentWorkCounter: 2, will wait for additional work",
+2012-01-09 09:21:44.2127,Raven.Database.Storage.IndexDefinitionStorage,Info,"New index Raven%2fDocumentsByEntityName:
+using Raven.Abstractions;
+using Raven.Database.Linq;
+using System.Linq;
+using System.Collections.Generic;
+using System.Collections;
+using System;
+using Raven.Database.Linq.PrivateExtensions;
+using Lucene.Net.Documents;
+using Raven.Database.Indexing;
+public class Index_Raven_2fDocumentsByEntityName : AbstractViewGenerator
+{
+	public Index_Raven_2fDocumentsByEntityName()
+	{
+		this.ViewText = @""from doc in docs 
+let Tag = doc[""""@metadata""""][""""Raven-Entity-Name""""]
+where  Tag != null 
+select new { Tag, LastModified = (DateTime)doc[""""@metadata""""][""""Last-Modified""""] };
+"";
+		this.AddMapDefinition(docs => from doc in docs
+			let Tag = doc[""@metadata""][""Raven-Entity-Name""]
+			where Tag != null
+			select new { Tag, LastModified = (DateTime)doc[""@metadata""][""Last-Modified""], __document_id = doc.__document_id });
+		this.AddField(""LastModified"");
+		this.AddField(""__document_id"");
+		this.AddField(""Tag"");
+		this.AddQueryParameterForMap(""__document_id"");
+		this.AddQueryParameterForReduce(""__document_id"");
+	}
+}
+
+Compiled to:
+using Raven.Abstractions;
+using Raven.Database.Linq;
+using System.Linq;
+using System.Collections.Generic;
+using System.Collections;
+using System;
+using Raven.Database.Linq.PrivateExtensions;
+using Lucene.Net.Documents;
+using Raven.Database.Indexing;
+public class Index_Raven_2fDocumentsByEntityName : AbstractViewGenerator
+{
+	public Index_Raven_2fDocumentsByEntityName()
+	{
+		this.ViewText = @""from doc in docs 
+let Tag = doc[""""@metadata""""][""""Raven-Entity-Name""""]
+where  Tag != null 
+select new { Tag, LastModified = (DateTime)doc[""""@metadata""""][""""Last-Modified""""] };
+"";
+		this.AddMapDefinition(docs => from doc in docs
+			let Tag = doc[""@metadata""][""Raven-Entity-Name""]
+			where Tag != null
+			select new { Tag, LastModified = (DateTime)doc[""@metadata""][""Last-Modified""], __document_id = doc.__document_id });
+		this.AddField(""LastModified"");
+		this.AddField(""__document_id"");
+		this.AddField(""Tag"");
+		this.AddQueryParameterForMap(""__document_id"");
+		this.AddQueryParameterForReduce(""__document_id"");
+	}
+}
+",
+2012-01-09 09:21:44.5537,Raven.Database.Indexing.IndexStorage,Info,Creating index Raven/DocumentsByEntityName with encoded name Raven/DocumentsByEntityName,
+2012-01-09 09:21:44.7997,Raven.Database.Indexing.Index.Indexing,Debug,Creating index for Raven/DocumentsByEntityName,
+2012-01-09 09:21:44.8237,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 3 - step 1/2,
+2012-01-09 09:21:44.8237,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 4 - step 2/2,
+2012-01-09 09:21:44.8237,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 4, currentWorkCounter: 4, will wait for additional work",
+2012-01-09 09:21:44.8237,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 4, currentWorkCounter: 4, will wait for additional work",
+2012-01-09 09:21:44.8827,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 4, currentWorkCounter: 4, will wait for additional work",
+2012-01-09 09:21:44.8827,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 4, currentWorkCounter: 4, will wait for additional work",
+2012-01-09 09:21:46.2238,Raven.Database.Server.HttpServer,Debug,Request #   1: GET     -    10 ms - <default>  - 200 - /docs?pageSize=0&noCache=-582380644,
+2012-01-09 09:21:46.4088,Raven.Database.Server.HttpServer,Debug,Request #   2: GET     -     0 ms - <default>  - 200 - /docs?pageSize=0&noCache=1199928656,
+2012-01-09 09:21:46.4318,Raven.Database.Server.HttpServer,Debug,Request #   3: GET     -    32 ms - <default>  - 200 - /build/version?noCache=-1321412740,
+2012-01-09 09:21:46.4408,Raven.Database.Server.HttpServer,Debug,Request #   4: GET     -     0 ms - <default>  - 200 - /docs?pageSize=0&noCache=1766254558,
+2012-01-09 09:21:46.4408,Raven.Database.Server.HttpServer,Debug,Request #   5: GET     -     4 ms - <default>  - 200 - /license/status?noCache=-328140981,
+2012-01-09 09:21:46.5698,Raven.Database.Server.HttpServer,Debug,Request #   6: GET     -    73 ms - <default>  - 200 - /stats?noCache=-466663993,
+2012-01-09 09:22:07.2490,Raven.Database.Server.HttpServer,Debug,Request #   8: GET     -    76 ms - <default>  - 200 - /docs/?start=0&pageSize=15&noCache=1065645948,
+2012-01-09 09:22:07.2490,Raven.Database.Server.HttpServer,Debug,Request #   7: GET     -    76 ms - <default>  - 200 - /docs/?start=0&pageSize=15&noCache=-454505465,
+2012-01-09 09:22:07.2890,Raven.Database.Server.HttpServer,Debug,Request #   9: GET     -   116 ms - <default>  - 200 - /stats?noCache=-1904105417,
+2012-01-09 09:22:13.2643,Raven.Database.Server.HttpServer,Debug,Request #  10: GET     -    27 ms - <default>  - 200 - /docs/?start=0&pageSize=15&noCache=-539945331,
+2012-01-09 09:22:13.2643,Raven.Database.Server.HttpServer,Debug,Request #  11: GET     -    27 ms - <default>  - 200 - /docs/?start=0&pageSize=15&noCache=-322626588,
+2012-01-09 09:22:13.2733,Raven.Database.Server.HttpServer,Debug,Request #  12: GET     -    35 ms - <default>  - 200 - /stats?noCache=-195251230,
+2012-01-09 09:24:14.4373,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'Raven/Replication/Destinations' was not found,
+2012-01-09 09:24:14.4373,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'Raven/Hilo/rooms' was not found,
+2012-01-09 09:24:14.4373,Raven.Database.Server.HttpServer,Debug,Request #  13: GET     -    19 ms - <default>  - 404 - /docs/Raven/Replication/Destinations,
+2012-01-09 09:24:14.4373,Raven.Database.Server.HttpServer,Debug,Request #  14: GET     -    19 ms - <default>  - 404 - /docs/Raven/Hilo/rooms,
+2012-01-09 09:24:14.6173,Raven.Database.DocumentDatabase,Debug,Putting a document with key: Raven/Hilo/rooms and etag 00000000-0000-0000-0000-000000000000,
+2012-01-09 09:24:14.6563,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,"Inserted a new document with key 'Raven/Hilo/rooms', update: False, ",
+2012-01-09 09:24:14.6563,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 5 - step 1/2,
+2012-01-09 09:24:14.6563,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 6 - step 2/2,
+2012-01-09 09:24:14.6563,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 6, currentWorkCounter: 6, will wait for additional work",
+2012-01-09 09:24:14.6563,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 6, currentWorkCounter: 6, will wait for additional work",
+2012-01-09 09:24:14.6563,Raven.Database.Server.HttpServer,Debug,Request #  15: PUT     -   102 ms - <default>  - 201 - /docs/Raven/Hilo/rooms,
+2012-01-09 09:24:14.6723,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 6, currentWorkCounter: 6, will wait for additional work",
+2012-01-09 09:24:14.7343,Raven.Database.Indexing.AbstractIndexingExecuter,Debug,Indexing 1 documents for index: Raven/DocumentsByEntityName,
+2012-01-09 09:24:14.7803,Raven.Database.DocumentDatabase,Debug,Executing batched commands in a single transaction,
+2012-01-09 09:24:14.7803,Raven.Database.DocumentDatabase,Debug,Putting a document with key: rooms/1 and etag ,
+2012-01-09 09:24:14.7803,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,"Inserted a new document with key 'rooms/1', update: False, ",
+2012-01-09 09:24:14.7973,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 7 - step 1/2,
+2012-01-09 09:24:14.7973,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 8 - step 2/2,
+2012-01-09 09:24:14.7973,Raven.Database.DocumentDatabase,Debug,Successfully executed 1 commands,
+2012-01-09 09:24:14.7973,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 8, currentWorkCounter: 8, will wait for additional work",
+2012-01-09 09:24:14.7973,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 8, currentWorkCounter: 8, will wait for additional work",
+2012-01-09 09:24:14.7973,Raven.Database.Server.HttpServer,Debug,Request #  16: POST    -    37 ms - <default>  - 200 - /bulk_docs,
+2012-01-09 09:24:14.7973,Raven.Database.Server.HttpServer,Debug,"	PUT rooms/1
+",
+2012-01-09 09:24:14.8143,Raven.Database.Indexing.Index.Indexing,Debug,Indexed 0 documents for Raven/DocumentsByEntityName,
+2012-01-09 09:24:14.8143,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 9 - step 1/2,
+2012-01-09 09:24:14.8143,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 10 - step 2/2,
+2012-01-09 09:24:14.8143,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 10, currentWorkCounter: 10, will wait for additional work",
+2012-01-09 09:24:14.8143,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 10, currentWorkCounter: 10, will wait for additional work",
+2012-01-09 09:24:14.8143,Raven.Database.Indexing.AbstractIndexingExecuter,Debug,Indexing 1 documents for index: Raven/DocumentsByEntityName,
+2012-01-09 09:24:15.0643,Raven.Database.Indexing.Index.Indexing,Debug,"Index 'Raven/DocumentsByEntityName' resulted in: Document<stored/uncompressed,indexed,tokenized,omitNorms<__document_id:rooms/1> indexed,omitNorms<Tag:Rooms> indexed,omitNorms<LastModified:20120109142414794>>",
+2012-01-09 09:24:15.4683,Raven.Database.Indexing.Index.Indexing,Debug,Indexed 1 documents for Raven/DocumentsByEntityName,
+2012-01-09 09:24:15.4683,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 11 - step 1/2,
+2012-01-09 09:24:15.4683,Raven.Database.Indexing.WorkContext,Debug,Incremented work counter to 12 - step 2/2,
+2012-01-09 09:24:15.4683,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 12, currentWorkCounter: 12, will wait for additional work",
+2012-01-09 09:24:15.4683,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 12, currentWorkCounter: 12, will wait for additional work",
+2012-01-09 09:24:15.4873,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 12, currentWorkCounter: 12, will wait for additional work",
+2012-01-09 09:24:15.4873,Raven.Database.Indexing.WorkContext,Debug,"Not work was found, workerWorkCounter: 12, currentWorkCounter: 12, will wait for additional work",
+2012-01-09 09:24:18.5915,Raven.Database.Server.HttpServer,Debug,Request #  17: GET     -   101 ms - <default>  - 200 - /stats?noCache=-1733909202,
+2012-01-09 09:24:37.9276,Raven.Database.Server.HttpServer,Debug,Request #  18: GET     -     1 ms - <default>  - 200 - /docs/?start=0&pageSize=15&startsWith=/&noCache=1935822378,
+2012-01-09 09:24:37.9636,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:24:37.9636,Raven.Database.Server.HttpServer,Debug,Request #  19: GET     -    11 ms - <default>  - 200 - /docs/rooms/1?noCache=1428698996,
+2012-01-09 09:24:38.0926,Raven.Database.Server.HttpServer,Debug,Request #  20: GET     -     3 ms - <default>  - 200 - /docs/?start=0&pageSize=15&startsWith=rooms/1/&noCache=1904531088,
+2012-01-09 09:24:38.9727,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:24:44.0319,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:24:49.1042,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:24:54.1955,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:24:54.1955,Raven.Database.Server.HttpServer,Debug,Request #  21: GET     -    54 ms - <default>  - 200 - /docs/rooms/1?noCache=-1056973547,
+2012-01-09 09:25:00.2229,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:05.2952,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:10.3675,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:15.4077,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:20.4820,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:25.5313,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:30.5916,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:35.6669,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:40.7232,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:45.7795,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:50.8388,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:25:55.8891,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:26:00.9523,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:26:06.0386,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:26:11.0929,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:26:16.1332,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:26:21.2455,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:26:21.2455,Raven.Database.Server.HttpServer,Debug,Request #  22: GET     -    56 ms - <default>  - 200 - /docs/rooms/1?noCache=-1151976025,
+2012-01-09 09:26:21.2545,Raven.Database.Server.HttpServer,Debug,Request #  23: GET     -    65 ms - <default>  - 200 - /stats?noCache=1523096532,
+2012-01-09 09:26:27.2548,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:26:32.2981,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:26:37.3524,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
+2012-01-09 09:26:42.4077,Raven.Storage.Esent.StorageActions.DocumentStorageActions,Debug,Document with key 'rooms/1' was found,
