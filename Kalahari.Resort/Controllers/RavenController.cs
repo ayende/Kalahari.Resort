@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using Raven.Client;
 using Raven.Client.Document;
+using Raven.Client.Indexes;
 
 namespace Kalahari.Resort.Controllers
 {
@@ -23,6 +24,8 @@ namespace Kalahari.Resort.Controllers
 					{
 						ConnectionStringName = "RavenDB"
 					}.Initialize();
+
+					IndexCreation.CreateIndexes(typeof(RavenController).Assembly, documentStore);
 				}
 				return documentStore;
 			}
@@ -46,10 +49,9 @@ namespace Kalahari.Resort.Controllers
 			}
 		}
 
-		protected ActionResult JsonGet(object data)
+		protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
 		{
-			return Json(data, JsonRequestBehavior.AllowGet);
+			return base.Json(data, contentType, contentEncoding, JsonRequestBehavior.AllowGet);
 		}
-
 	}
 }

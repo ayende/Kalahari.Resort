@@ -84,11 +84,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RavenController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Indexes\Accounts_Balance.cs" />
+    <Compile Include="Indexes\Albums_Search.cs" />
+    <Compile Include="Models\AccountHistory.cs" />
+    <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\ReadingList.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\RoomType.cs" />

@@ -9,6 +9,6 @@ namespace Kalahari.Resort.Models
 		public string RoomTypeId { get; set; }
 		public int Year { get; set; }
 		public int Month { get; set; }
-		public Dictionary<int, decimal> Pricing { get; set; }
+		public Dictionary<string, decimal> Pricing { get; set; }
 	}
 }
