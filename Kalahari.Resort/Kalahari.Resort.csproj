@@ -92,8 +92,11 @@
     </Compile>
     <Compile Include="Indexes\Accounts_Balance.cs" />
     <Compile Include="Indexes\Albums_Search.cs" />
+    <Compile Include="Indexes\Designs_ByArchitectLastCitationDate.cs" />
+    <Compile Include="Indexes\Meaningless.cs" />
     <Compile Include="Models\AccountHistory.cs" />
     <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\Design.cs" />
     <Compile Include="Models\ReadingList.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Room.cs" />

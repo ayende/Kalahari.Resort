@@ -6,6 +6,7 @@ namespace Kalahari.Resort.Models
 	public class ReadingList
 	{
 		public string Id { get; set; }
+		public string UserId { get; set; }
 
 		public List<ReadBook> Books { get; set; }
 
