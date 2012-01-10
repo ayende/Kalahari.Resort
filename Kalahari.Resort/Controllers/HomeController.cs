@@ -11,98 +11,28 @@ namespace Kalahari.Resort.Controllers
 	{
 		public ActionResult Index(string q)
 		{
-			var accountHistory = new[]
+			var names = new[]
+					{
+						"Oren Eini",
+						"Ayende Rahien",
+						"David Boike",
+						"Bryan Mihok",
+						"Brandon Sharp",
+						"Corey Perkins",
+						"Cody Myers",
+						"Gabriel Perez",
+						"David Nolf",
+						"Everett Muniz"
+					};
+			foreach (var name in names)
 			{
-				new AccountHistory
+				Session.Store(new User
 				{
-					AccountId = "accounts/2",
-					Transactions = new List<AccountHistory.Transaction>
-					{
-						new AccountHistory.Transaction
-						{
-							Amount = 50m,
-							Note = "Initial Deposit"
-						},
-						new AccountHistory.Transaction
-						{
-							Amount = -15m,
-							Note = "Bad Doggie"
-						}
-					}
-				},
-
-				new AccountHistory
-				{
-					AccountId = "accounts/2",
-					Transactions = new List<AccountHistory.Transaction>
-					{
-						new AccountHistory.Transaction
-						{
-							Amount = -34.5m,
-							Note = "Applebeess"
-						},
-						new AccountHistory.Transaction
-						{
-							Amount = -5m,
-							Note = "Damn you, doggie!"
-						}
-					}
-				}
-				,
-
-				new AccountHistory
-				{
-					AccountId = "accounts/1",
-					Transactions = new List<AccountHistory.Transaction>
-					{
-						new AccountHistory.Transaction
-						{
-							Amount = 150m,
-							Note = "Initial Deposit"
-						},
-						new AccountHistory.Transaction
-						{
-							Amount = -15m,
-							Note = "Bad Doggie"
-						}
-					}
-				},
-
-				new AccountHistory
-				{
-					AccountId = "accounts/1",
-					Transactions = new List<AccountHistory.Transaction>
-					{
-						new AccountHistory.Transaction
-						{
-							Amount = -14.5m,
-							Note = "Applebeess"
-						},
-						new AccountHistory.Transaction
-						{
-							Amount = -5m,
-							Note = "Dropped it!"
-						}
-					}
-				}
-			};
-
-			var b = from history in accountHistory
-					from tx in history.Transactions
-			        group tx by history.AccountId
-			        into g
-			        select new
-			        {
-			        	AccountId = g.Key, 
-						Balance = g.Sum(x=>x.Amount)
-			        };
-
-			foreach (var history in accountHistory)
-			{
-				Session.Store(history);
+					Name = name
+				});
 			}
 
-			return Json(b);
+			return Json(1);
 		}
 
 		public ActionResult SaveRoomAndType()

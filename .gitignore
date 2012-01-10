@@ -42,3 +42,4 @@ StyleCop.Cache
 Data/
 *.dotCover
 Logs/
+Tenants/

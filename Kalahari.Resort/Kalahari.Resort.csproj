@@ -94,6 +94,8 @@
     <Compile Include="Indexes\Albums_Search.cs" />
     <Compile Include="Indexes\Designs_ByArchitectLastCitationDate.cs" />
     <Compile Include="Indexes\Meaningless.cs" />
+    <Compile Include="Indexes\ReadingHabits_ByDayOfWeek.cs" />
+    <Compile Include="Indexes\Users_ByName.cs" />
     <Compile Include="Models\AccountHistory.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Design.cs" />
