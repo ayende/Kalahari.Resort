@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Kalahari.Resort.Indexes;
@@ -11,6 +12,7 @@ namespace Kalahari.Resort.Controllers
 	{
 		public ActionResult Index(string q)
 		{
+			new ReadingHabits_ByDayOfWeek_MultiMap().Execute(DocumentStore);
 			var names = new[]
 					{
 						"Oren Eini",
@@ -37,6 +39,12 @@ namespace Kalahari.Resort.Controllers
 
 		public ActionResult SaveRoomAndType()
 		{
+
+			using(Session.Advanced.DocumentStore.AggressivelyCacheFor(TimeSpan.FromMinutes(5)))
+			{
+				
+			}
+
 			RoomType newType = new RoomType
 			{
 				Name = "King Suite"
